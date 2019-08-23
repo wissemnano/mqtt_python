@@ -4,7 +4,7 @@ import sys
 import paho.mqtt.client as mqtt
 import json
 
-SERVEUR = '192.168.1.25'
+SERVEUR = '192.168.1.69'
 # ACCESS_TOKEN = 'DHT22_DEMO_TOKEN'
 
 # Data capture and upload interval in seconds. Less interval will eventually hang the DHT22.
@@ -43,7 +43,7 @@ try:
 
         temperature = round(temperature, 2)
         sensor_data['temperature'] = temperature
-        
+
         print(u"Temperature: {:g}\u00b0C, Humidity: {:g}%".format(temperature, humidity))
 
         # Sending humidity and temperature data to ThingsBoard
