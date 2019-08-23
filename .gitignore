@@ -1,1 +1,4 @@
 .vscode/
+systemc/main
+systemc/main.o
+systemc/test.png
