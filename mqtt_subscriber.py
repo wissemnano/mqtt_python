@@ -4,12 +4,10 @@ MQTT_SERVER = "192.168.1.25"
 MQTT_PATH = "test_channel"
 
 # The callback for when the client receives a CONNACK response from the server.
-def on_connect(client , userdata, flags, rc):
-    print("connected with result code :"+str(rc))
-
-    # Subscribing in on_connect() means that if we lose the connection and
-    # reconnect then subscriptions will be renewed.
-    client.subscibe(MQTT_PATH)
+def on_connect(client, userdata, flags, rc):
+     logging.info("Connected flags"+str(flags)+"result code "\
+     +str(rc)+"client1_id ")
+     client.connected_flag=True
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
