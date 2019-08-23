@@ -7,23 +7,26 @@ import json
 # Data capture and upload interval in seconds. Less interval will eventually hang the DHT22.
 INTERVAL=5
 
-sensor_data = {'temperature': 0, 'humidity': 0}
+
+temperature = 0.0
+humidity = 0.0
 
 next_reading = time.time()
 
 def readData(fileName):
-    global sensor_data
-    sensor_data['temperature'] = temperature
-    sensor_data['humidity'] = humidity
+    global temperature, humidity
+    with open(fileName) as json_data:
+        data_sensors = json.load(json_data)
+    temperature = data_sensors['temperature']
+    humidity = data_sensors['humidity']
 
 try:
     while True:
-        humidity,temperature = dht.read_retry(dht.DHT22, 4)
-        #humidity = round(humidity, 2)
-        #temperature = round(temperature, 2)
+        readData('data.json')
+        humidity = round(humidity, 2)
+        temperature = round(temperature, 2)
         print(u"Temperature: {:g}\u00b0C, Humidity: {:g}%".format(temperature, humidity))
         
-
         # Sending humidity and temperature data to ThingsBoard
 
         next_reading += INTERVAL
