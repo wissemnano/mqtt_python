@@ -4,7 +4,7 @@ import sys
 import paho.mqtt.client as mqtt
 import json
 
-SERVEUR = '192.168.1.69'
+SERVEUR = 'localhost'
 # ACCESS_TOKEN = 'DHT22_DEMO_TOKEN'
 
 # Data capture and upload interval in seconds. Less interval will eventually hang the DHT22.
