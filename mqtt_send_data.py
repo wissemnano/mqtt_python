@@ -24,14 +24,27 @@ client.connect(SERVEUR, 1883, 60)
 
 client.loop_start()
 
+temperature = 0.0
+humidity = 0.0
+
+def readData(fileName):
+    global temperature, humidity
+    with open(fileName) as json_data:
+        data_sensors = json.load(json_data)
+    temperature = data_sensors['temperature']
+    humidity = data_sensors['humidity']
+
+
 try:
     while True:
-        humidity,temperature = dht.read_retry(dht.DHT22, 4)
-        #humidity = round(humidity, 2)
-        #temperature = round(temperature, 2)
-        print(u"Temperature: {:g}\u00b0C, Humidity: {:g}%".format(temperature, humidity))
-        sensor_data['temperature'] = temperature
+        readData('data.json')
+        humidity = round(humidity, 2)
         sensor_data['humidity'] = humidity
+
+        temperature = round(temperature, 2)
+        sensor_data['temperature'] = temperature
+        
+        print(u"Temperature: {:g}\u00b0C, Humidity: {:g}%".format(temperature, humidity))
 
         # Sending humidity and temperature data to ThingsBoard
         client.publish('test_channel', json.dumps(sensor_data), 1)
