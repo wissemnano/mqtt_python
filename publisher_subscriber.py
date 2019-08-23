@@ -1,4 +1,4 @@
-import os
+import time
 import paho.mqtt.client as mqtt
 
 MQTT_SERVER = "192.168.1.25"
@@ -31,4 +31,16 @@ except KeyboardInterrupt:
 # handles reconnecting.
 # Other loop*() functions are available that give a threaded interface and a
 # manual interface.
-client.loop_forever()
+
+
+#client.loop_forever()
+client.loop_start()
+try:
+    while True:
+        client.publish("other_topic_channel", "Get started with MQTT")
+        time.sleep(2)
+except KeyboardInterrupt:
+    client.loop_stop()
+    client.disconnect()
+
+    
